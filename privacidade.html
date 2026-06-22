@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — Rotina.</title>
+<meta name="description" content="Política de Privacidade do aplicativo Rotina.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F5EDE0'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Georgia,serif' font-style='italic' font-weight='bold' fill='%232B1D14' text-anchor='middle'%3ER.%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">Rotina<span class="dot">.</span></a>
+    <div class="navlinks">
+      <a href="index.html#recursos">Recursos</a>
+      <a href="index.html#como-funciona">Como funciona</a>
+      <a href="termos.html">Termos</a>
+      <a href="privacidade.html" class="active">Privacidade</a>
+    </div>
+    <a href="https://github.com/Byebyte9/rotina-site/releases/download/app/rotina.apk" class="btn-nav">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+      Baixar APK
+    </a>
+    <button class="nav-ham" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#recursos">Recursos</a>
+    <a href="index.html#como-funciona">Como funciona</a>
+    <a href="termos.html">Termos</a>
+    <a href="privacidade.html" class="active">Privacidade</a>
+    <a href="https://github.com/Byebyte9/rotina-site/releases/download/app/rotina.apk" class="m-cta">Baixar APK</a>
+  </div>
+</header>
+
+<main class="legal-wrap">
+  <div class="legal-head">
+    <div class="tag">🔒 Documento legal</div>
+    <h1>Política de Privacidade</h1>
+    <p class="updated">Última atualização: 22 de junho de 2026</p>
+  </div>
+
+  <div class="legal-card">
+    <p class="intro">Esta Política de Privacidade explica como o aplicativo <strong>Rotina</strong> coleta, usa, armazena e protege os dados dos seus usuários, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+
+    <h2>1. Dados que coletamos</h2>
+    <p>Para que o Rotina funcione, coletamos os seguintes dados:</p>
+    <ul>
+      <li><strong>Dados de cadastro:</strong> nome, email e senha (armazenada de forma criptografada, nunca em texto simples);</li>
+      <li><strong>Foto de perfil:</strong> armazenada localmente no seu dispositivo;</li>
+      <li><strong>Status de fundador:</strong> indicador interno para os primeiros 200 cadastros;</li>
+      <li><strong>Tarefas:</strong> nome, horário, recorrência, peso/prioridade e status de conclusão;</li>
+      <li><strong>Metas e progresso:</strong> contadores, hábitos diários e tempo de foco acumulado;</li>
+      <li><strong>Dados de sono:</strong> horários de dormir e acordar informados por você;</li>
+      <li><strong>Notas e avaliação diária:</strong> anotações e indicador de humor/avaliação do dia;</li>
+      <li><strong>Preferências:</strong> configurações de notificação e tema (claro/escuro).</li>
+    </ul>
+    <p>Não coletamos dados sensíveis (como dados de saúde, biometria ou localização) além do que você mesmo escolhe registrar nas notas ou tarefas do app.</p>
+
+    <h2>2. Como usamos seus dados</h2>
+    <p>Os dados coletados são usados exclusivamente para:</p>
+    <ul>
+      <li>Permitir o funcionamento das funcionalidades do app (tarefas, metas, sono, foco, dashboard);</li>
+      <li>Autenticar o seu acesso à conta;</li>
+      <li>Sincronizar suas informações entre sessões e, futuramente, entre dispositivos;</li>
+      <li>Identificar e corrigir falhas técnicas.</li>
+    </ul>
+    <p><strong>Não vendemos, alugamos ou compartilhamos seus dados com terceiros para fins de publicidade.</strong> O Rotina não exibe anúncios e não utiliza seus dados pessoais para fins comerciais de terceiros.</p>
+
+    <h2>3. Onde seus dados são armazenados</h2>
+    <p>Seus dados são armazenados em dois lugares:</p>
+    <ul>
+      <li><strong>No seu dispositivo:</strong> parte dos dados (como preferências e foto de perfil) é mantida localmente, via armazenamento nativo do app;</li>
+      <li><strong>Em nosso servidor:</strong> os dados sincronizados ficam em um banco de dados PostgreSQL hospedado pela infraestrutura da Railway, com conexão protegida por SSL.</li>
+    </ul>
+    <p>A senha da sua conta nunca é armazenada em texto simples — utilizamos hash criptográfico (bcrypt) para proteção, de forma que nem nós temos acesso à sua senha original.</p>
+
+    <h2>4. Compartilhamento de dados</h2>
+    <p>Não compartilhamos seus dados pessoais com terceiros, exceto:</p>
+    <ul>
+      <li>Provedores de infraestrutura necessários ao funcionamento técnico do app (como a Railway, responsável pela hospedagem do banco de dados);</li>
+      <li>Quando exigido por lei, ordem judicial ou autoridade competente.</li>
+    </ul>
+
+    <h2>5. Retenção dos dados</h2>
+    <p>Mantemos seus dados enquanto sua conta estiver ativa. Caso solicite a exclusão da conta, seus dados pessoais e de uso serão removidos dos nossos servidores em até <strong>30 dias</strong> após a confirmação da solicitação, salvo quando a retenção for exigida por obrigação legal.</p>
+
+    <h2>6. Seus direitos como titular dos dados</h2>
+    <p>De acordo com a LGPD, você tem direito a:</p>
+    <ul>
+      <li>Confirmar a existência de tratamento dos seus dados;</li>
+      <li>Acessar os dados que temos sobre você;</li>
+      <li>Corrigir dados incompletos, inexatos ou desatualizados;</li>
+      <li>Solicitar a exclusão dos seus dados pessoais;</li>
+      <li>Solicitar a portabilidade dos seus dados a outro fornecedor de serviço;</li>
+      <li>Revogar o consentimento dado para o tratamento dos dados;</li>
+      <li>Obter informações sobre o compartilhamento dos seus dados.</li>
+    </ul>
+    <p>Você pode exercer esses direitos diretamente nas configurações do app (quando disponível) ou pelo contato informado na seção 9.</p>
+
+    <h2>7. Segurança dos dados</h2>
+    <p>Adotamos medidas técnicas para proteger seus dados, incluindo:</p>
+    <ul>
+      <li>Senhas armazenadas com hash bcrypt;</li>
+      <li>Autenticação via tokens JWT com validade de 30 dias;</li>
+      <li>Conexão criptografada (SSL) entre o app e o banco de dados.</li>
+    </ul>
+    <p>Apesar dos esforços para proteger suas informações, nenhum sistema é 100% livre de falhas. Trabalhamos continuamente para aprimorar a segurança da plataforma.</p>
+
+    <h2>8. Uso por menores de idade</h2>
+    <p>O Rotina é destinado a usuários com <strong>13 anos ou mais</strong>. Não coletamos intencionalmente dados de crianças menores de 13 anos. Caso identifiquemos uma conta criada por um usuário abaixo dessa idade, ela poderá ser removida da plataforma.</p>
+
+    <h2>9. Alterações desta política</h2>
+    <p>Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças no app, em nossas práticas ou em requisitos legais. A data da última atualização estará sempre indicada no topo deste documento.</p>
+
+    <h2>10. Contato</h2>
+    <p>Para dúvidas, solicitações relacionadas aos seus dados pessoais ou exercício dos seus direitos como titular, entre em contato através do email informado dentro do app ou na página de suporte.</p>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <span class="logo">Rotina<span class="dot">.</span></span>
+      <p>Organize sua rotina, acompanhe seu progresso e evolua um dia de cada vez.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <h5>Produto</h5>
+        <a href="index.html#recursos">Recursos</a>
+        <a href="index.html#como-funciona">Como funciona</a>
+        <a href="https://github.com/Byebyte9/rotina-site/releases/download/app/rotina.apk">Baixar APK</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Rotina. Todos os direitos reservados.</span>
+    <span>Feito pra quem quer evoluir, um dia de cada vez.</span>
+  </div>
+</footer>
+
+<script>
+  const ham = document.getElementById('ham');
+  const menu = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      ham.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
