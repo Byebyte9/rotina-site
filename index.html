@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rotina. — Pequenas ações, grandes transformações</title>
+<meta name="description" content="Rotina é o app que organiza seus hábitos, metas, foco e sono em um só lugar. Construa consistência, um dia de cada vez.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F5EDE0'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Georgia,serif' font-style='italic' font-weight='bold' fill='%232B1D14' text-anchor='middle'%3ER.%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5EDE0;
+    --cream-deep:#EFE3CF;
+    --card:#E8DCC4;
+    --card-line:#D8C8A8;
+    --ink:#2B1D14;
+    --ink-soft:#5A4A3A;
+    --ink-faint:#8A7A65;
+    --brown-card:#3D2B1E;
+    --terracotta:#D9622B;
+    --terracotta-deep:#B84F1F;
+    --green:#5FA052;
+    --blue:#5B8FD9;
+    --purple:#7B6BC4;
+    --line:#D8C8A8;
+    --radius-lg:28px;
+    --radius-md:20px;
+    --radius-sm:14px;
+    --shadow:0 1px 2px rgba(43,29,20,0.04), 0 8px 24px rgba(43,29,20,0.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Lora',serif;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* subtle grain/texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:radial-gradient(circle at 1px 1px, rgba(43,29,20,0.025) 1px, transparent 0);
+    background-size:22px 22px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(245,237,224,0.82);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Lora',serif; font-style:italic; font-weight:700;
+    font-size:1.5rem; color:var(--ink);
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{color:var(--terracotta);}
+  .navlinks{display:flex; align-items:center; gap:32px;}
+  .navlinks a{
+    font-size:0.92rem; font-weight:500; color:var(--ink-soft);
+    transition:color .2s;
+  }
+  .navlinks a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--ink); color:var(--cream);
+    padding:10px 20px; border-radius:999px;
+    font-weight:600; font-size:0.88rem;
+    display:flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .2s;
+  }
+  .nav-cta:hover{background:var(--terracotta-deep); transform:translateY(-1px);}
+  .nav-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 40px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--card); border:1px solid var(--card-line);
+    border-radius:999px; padding:7px 16px;
+    font-size:0.82rem; font-weight:600; color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .eyebrow .flame{color:var(--terracotta);}
+  h1{
+    font-family:'Lora',serif; font-style:italic; font-weight:600;
+    font-size:3.4rem; line-height:1.08;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin-bottom:22px;
+  }
+  h1 .accent{color:var(--terracotta-deep); font-style:italic;}
+  .hero p.lead{
+    font-size:1.12rem; line-height:1.6; color:var(--ink-soft);
+    max-width:480px; margin-bottom:32px;
+  }
+  .hero-ctas{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--ink); color:var(--cream);
+    padding:15px 28px; border-radius:999px;
+    font-weight:700; font-size:0.98rem;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .15s ease, background .2s;
+    box-shadow:0 6px 18px rgba(43,29,20,0.18);
+  }
+  .btn-primary:hover{background:var(--terracotta-deep); transform:translateY(-2px);}
+  .btn-secondary{
+    color:var(--ink); font-weight:600; font-size:0.95rem;
+    padding:15px 8px;
+    border-bottom:1.5px solid var(--ink-faint);
+    transition:border-color .2s, color .2s;
+  }
+  .btn-secondary:hover{border-color:var(--ink);}
+  .hero-note{
+    margin-top:14px; font-size:0.82rem; color:var(--ink-faint);
+  }
+
+  /* PHONE MOCK */
+  .phone-stage{
+    position:relative;
+    display:flex; justify-content:center;
+    perspective:1200px;
+  }
+  .phone{
+    width:300px;
+    background:var(--ink);
+    border-radius:42px;
+    padding:14px;
+    box-shadow:0 30px 60px -10px rgba(43,29,20,0.35), 0 10px 20px rgba(43,29,20,0.15);
+    transform:rotate(2deg);
+    position:relative;
+    z-index:2;
+  }
+  .phone-screen{
+    background:var(--cream);
+    border-radius:30px;
+    overflow:hidden;
+    aspect-ratio:300/620;
+  }
+  .phone-screen .statusbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 22px 4px; font-size:0.72rem; font-weight:700; color:var(--ink);
+  }
+  .phone-screen .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:6px 18px 14px;
+  }
+  .phone-screen .topbar .logo-sm{
+    font-family:'Lora',serif; font-style:italic; font-weight:700; font-size:1.15rem;
+  }
+  .pill-date{
+    background:var(--card); border:1px solid var(--card-line);
+    border-radius:999px; padding:6px 14px; font-size:0.7rem; font-weight:600; color:var(--ink-soft);
+    display:flex; align-items:center; gap:6px;
+  }
+  .greet-card{
+    background:var(--brown-card); color:var(--cream);
+    margin:0 18px 12px; padding:16px 18px; border-radius:18px;
+  }
+  .greet-card .t1{font-weight:700; font-size:0.92rem; margin-bottom:4px;}
+  .greet-card .t2{font-size:0.78rem; color:#C9B8A2;}
+  .prog-card{
+    background:var(--card); margin:0 18px 12px; padding:16px 18px; border-radius:18px;
+  }
+  .prog-card .row{display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:10px;}
+  .prog-bar{height:7px; background:#D8C8A8; border-radius:999px; overflow:hidden;}
+  .prog-fill{height:100%; width:64%; background:var(--terracotta); border-radius:999px;}
+  .prog-card .sub{font-size:0.68rem; color:var(--ink-faint); margin-top:8px;}
+  .mini-stats{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 18px 12px;}
+  .mini-card{
+    background:var(--card); border-radius:16px; padding:14px; text-align:center;
+  }
+  .mini-card .ic{font-size:1.1rem; margin-bottom:6px;}
+  .mini-card .num{font-weight:800; font-size:1.05rem;}
+  .mini-card .lbl{font-size:0.62rem; color:var(--ink-faint); margin-top:2px;}
+  .task-row{
+    display:flex; align-items:center; gap:10px;
+    margin:0 18px 8px; padding:10px 14px;
+    background:var(--card); border-radius:14px;
+  }
+  .task-row .check{
+    width:18px; height:18px; border-radius:50%; border:2px solid var(--ink-faint); flex-shrink:0;
+  }
+  .task-row.done .check{background:var(--green); border-color:var(--green);}
+  .task-row .label{font-size:0.76rem; font-weight:600;}
+  .task-row .time{font-size:0.62rem; color:var(--ink-faint); margin-top:1px;}
+
+  .float-card{
+    position:absolute;
+    background:var(--cream);
+    border-radius:18px;
+    box-shadow:0 16px 32px rgba(43,29,20,0.18);
+    padding:14px 16px;
+    z-index:3;
+    border:1px solid var(--card-line);
+  }
+  .float-1{top:6%; right:-6%; width:188px;}
+  .float-1 .lbl{font-size:0.66rem; color:var(--ink-faint); margin-bottom:6px; font-weight:600;}
+  .float-1 .name{font-size:0.78rem; font-weight:700; margin-bottom:8px;}
+  .float-1 .bar{height:6px; background:#D8C8A8; border-radius:999px; overflow:hidden;}
+  .float-1 .bar i{display:block; height:100%; width:100%; background:var(--blue);}
+  .float-1 .sub{font-size:0.62rem; color:var(--ink-faint); margin-top:6px;}
+
+  .float-2{bottom:10%; left:-9%; width:128px; text-align:center;}
+  .float-2 .flame{font-size:1.4rem;}
+  .float-2 .num{font-size:1.5rem; font-weight:800; font-family:'Lora',serif;}
+  .float-2 .lbl{font-size:0.62rem; color:var(--ink-faint); margin-top:2px;}
+
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(60px); opacity:.35; z-index:0;
+  }
+  .blob-1{width:340px; height:340px; background:var(--terracotta); top:-80px; right:10%;}
+  .blob-2{width:260px; height:260px; background:var(--purple); bottom:-60px; left:0;}
+
+  /* LOGO STRIP */
+  .features-tags{
+    display:flex; justify-content:center; gap:28px; flex-wrap:wrap;
+    padding:36px 0 0; border-top:1px solid var(--line); margin-top:60px;
+  }
+  .ftag{
+    display:flex; align-items:center; gap:8px;
+    font-size:0.86rem; font-weight:600; color:var(--ink-soft);
+  }
+
+  /* SECTION HEADERS */
+  .section{padding:96px 0;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head .eyebrow{margin:0 auto 16px;}
+  .section-head h2{
+    font-family:'Lora',serif; font-style:italic; font-weight:600;
+    font-size:2.4rem; line-height:1.15; color:var(--ink); margin-bottom:14px;
+  }
+  .section-head p{font-size:1.04rem; color:var(--ink-soft); line-height:1.6;}
+
+  /* FEATURES GRID */
+  .feat-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  .feat-card{
+    background:var(--card); border:1px solid var(--card-line);
+    border-radius:var(--radius-md); padding:30px 26px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .feat-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .feat-card .icon{
+    width:46px; height:46px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; margin-bottom:18px;
+  }
+  .feat-card h3{font-size:1.08rem; font-weight:700; margin-bottom:8px;}
+  .feat-card p{font-size:0.9rem; color:var(--ink-soft); line-height:1.55;}
+  .ic-orange{background:#F0D6C2; color:var(--terracotta-deep);}
+  .ic-blue{background:#D6E2F2; color:#3A66A8;}
+  .ic-purple{background:#DFD8F0; color:#5B4A9E;}
+  .ic-green{background:#D9E8D3; color:#3E7A35;}
+  .ic-dark{background:var(--ink); color:var(--cream);}
+
+  /* SHOWCASE (dark) */
+  .showcase{
+    background:var(--ink); color:var(--cream);
+    border-radius:40px;
+    padding:80px 56px;
+    margin:0 28px;
+    position:relative;
+    overflow:hidden;
+  }
+  .showcase-inner{max-width:1124px; margin:0 auto; position:relative; z-index:1;}
+  .showcase .section-head h2{color:var(--cream);}
+  .showcase .section-head p{color:#C9B8A2;}
+  .showcase .eyebrow{background:rgba(245,237,224,0.08); border-color:rgba(245,237,224,0.15); color:#E2D4BE;}
+  .showcase-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .sc-card{
+    background:var(--brown-card); border:1px solid rgba(245,237,224,0.08);
+    border-radius:20px; padding:26px;
+  }
+  .sc-card h4{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; color:#C9B8A2; margin-bottom:14px; font-weight:700;}
+  .sc-card .big{font-family:'Lora',serif; font-weight:700; font-size:2.2rem; margin-bottom:6px;}
+  .sc-card .desc{font-size:0.88rem; color:#C9B8A2; line-height:1.5;}
+  .sc-card .ring{
+    width:84px; height:84px; border-radius:50%;
+    border:7px solid #4A372A; border-top-color:var(--terracotta); border-right-color:var(--terracotta);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:1.05rem; margin:0 auto 14px;
+  }
+  .glow{position:absolute; width:400px; height:400px; border-radius:50%; background:var(--terracotta); opacity:.18; filter:blur(100px); top:-100px; left:50%; transform:translateX(-50%);}
+
+  /* HOW IT WORKS / TIMELINE */
+  .steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;
+  }
+  .steps::before{
+    content:""; position:absolute; top:26px; left:0; right:0; height:1px; background:var(--line);
+  }
+  .step{position:relative; padding-top:0; text-align:left;}
+  .step .num{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--cream); border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Lora',serif; font-weight:700; font-style:italic; font-size:1.1rem;
+    margin-bottom:20px; position:relative; z-index:1;
+  }
+  .step h4{font-size:1rem; font-weight:700; margin-bottom:8px;}
+  .step p{font-size:0.88rem; color:var(--ink-soft); line-height:1.5;}
+
+  /* CTA DOWNLOAD */
+  .cta-section{
+    background:var(--card); border:1px solid var(--card-line);
+    border-radius:var(--radius-lg);
+    padding:64px 48px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-section h2{
+    font-family:'Lora',serif; font-style:italic; font-weight:600;
+    font-size:2.2rem; margin-bottom:14px;
+  }
+  .cta-section p{font-size:1.02rem; color:var(--ink-soft); margin-bottom:32px;}
+  .cta-buttons{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  .btn-apk{
+    background:var(--ink); color:var(--cream);
+    padding:17px 32px; border-radius:999px;
+    font-weight:700; font-size:1rem;
+    display:inline-flex; align-items:center; gap:12px;
+    box-shadow:0 8px 22px rgba(43,29,20,0.2);
+    transition:transform .15s ease, background .2s;
+  }
+  .btn-apk:hover{background:var(--terracotta-deep); transform:translateY(-2px);}
+  .btn-apk svg{width:20px; height:20px;}
+  .cta-foot{margin-top:18px; font-size:0.82rem; color:var(--ink-faint);}
+
+  /* FOOTER */
+  footer{padding:56px 0 36px; border-top:1px solid var(--line); margin-top:40px;}
+  .foot-grid{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px;
+  }
+  .foot-brand .logo{margin-bottom:10px;}
+  .foot-brand p{font-size:0.86rem; color:var(--ink-faint); max-width:280px; line-height:1.5;}
+  .foot-links{display:flex; gap:56px; flex-wrap:wrap;}
+  .foot-col h5{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); margin-bottom:14px; font-weight:700;}
+  .foot-col a{display:block; font-size:0.9rem; color:var(--ink-soft); margin-bottom:10px; transition:color .2s;}
+  .foot-col a:hover{color:var(--ink);}
+  .foot-bottom{
+    margin-top:48px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:0.8rem; color:var(--ink-faint);
+  }
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr; gap:56px;}
+    .hero{padding-top:48px;}
+    .phone-stage{order:-1;}
+    h1{font-size:2.5rem;}
+    .feat-grid{grid-template-columns:1fr 1fr;}
+    .showcase-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr; gap:32px 20px;}
+    .steps::before{display:none;}
+    .showcase{padding:56px 28px; margin:0 16px;}
+  }
+  @media (max-width:680px){
+    .navlinks{display:none;}
+    .wrap{padding:0 20px;}
+    h1{font-size:2.1rem;}
+    .feat-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .foot-grid{flex-direction:column;}
+    .foot-links{gap:32px;}
+    .section{padding:64px 0;}
+    .float-1{display:none;}
+    .float-2{left:-4%; bottom:4%;}
+    .phone{width:240px;}
+    .cta-section{padding:48px 24px;}
+    .section-head h2{font-size:1.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#" class="logo">Rotina<span class="dot">.</span></a>
+    <div class="navlinks">
+      <a href="#recursos">Recursos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="termos.html">Termos</a>
+      <a href="privacidade.html">Privacidade</a>
+    </div>
+    <a href="releases/rotina.apk" class="nav-cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+      Baixar APK
+    </a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="hero-grid">
+      <div class="reveal in">
+        <div class="eyebrow"><span class="flame">🔥</span> Construído pra quem quer consistência</div>
+        <h1>Pequenas ações,<br><span class="accent">grandes</span> transformações.</h1>
+        <p class="lead">Rotina organiza seus hábitos, metas, foco e sono em um só lugar — pra você evoluir um dia de cada vez, sem complicação.</p>
+        <div class="hero-ctas">
+          <a href="releases/rotina.apk" class="btn-primary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+            Baixar para Android
+          </a>
+          <a href="#recursos" class="btn-secondary">Ver recursos ↓</a>
+        </div>
+        <p class="hero-note">Arquivo .apk · Android 8.0 ou superior</p>
+      </div>
+
+      <div class="phone-stage reveal in">
+        <div class="float-card float-1">
+          <div class="lbl">SUAS METAS</div>
+          <div class="name">Beber mais água</div>
+          <div class="bar"><i></i></div>
+          <div class="sub">1 / 1 dia · 100%</div>
+        </div>
+
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="statusbar"><span>13:29</span><span>●●● 🔇 📶 58</span></div>
+            <div class="topbar">
+              <span class="logo-sm">Rotina<span style="color:var(--terracotta)">.</span></span>
+              <span class="pill-date">📅 seg., 22 de jun.</span>
+            </div>
+            <div class="greet-card">
+              <div class="t1">Boa tarde! Meio dia é hora de render.</div>
+              <div class="t2">Aproveite bem a tarde ☀️</div>
+            </div>
+            <div class="prog-card">
+              <div class="row"><span>Progresso do dia</span><span>64%</span></div>
+              <div class="prog-bar"><div class="prog-fill"></div></div>
+              <div class="sub">7 de 11 tarefas concluídas</div>
+            </div>
+            <div class="mini-stats">
+              <div class="mini-card"><div class="ic">🌙</div><div class="num">8h</div><div class="lbl">Sono esta noite</div></div>
+              <div class="mini-card"><div class="ic">⏱️</div><div class="num">25:00</div><div class="lbl">Foco profundo</div></div>
+            </div>
+            <div class="task-row done"><div class="check"></div><div><div class="label">Beber água</div><div class="time">08:00</div></div></div>
+            <div class="task-row"><div class="check"></div><div><div class="label">Exercitar</div><div class="time">07:00</div></div></div>
+          </div>
+        </div>
+
+        <div class="float-card float-2">
+          <div class="flame">🔥</div>
+          <div class="num">12</div>
+          <div class="lbl">Maior streak</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-tags reveal in">
+      <span class="ftag">✅ Hábitos</span>
+      <span class="ftag">🔥 Streaks</span>
+      <span class="ftag">⏱️ Foco</span>
+      <span class="ftag">🌙 Sono</span>
+      <span class="ftag">📊 Progresso</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="recursos" class="section wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">⚙️ Recursos</div>
+      <h2>Tudo que importa, num só lugar</h2>
+      <p>Sem dez apps diferentes pra organizar sua vida. O Rotina junta hábitos, metas, foco e sono numa experiência só.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="icon ic-orange">✅</div>
+        <h3>Hábitos e tarefas</h3>
+        <p>Crie tarefas recorrentes, defina horários e acompanhe o que foi concluído ao longo do dia.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="icon ic-green">🔥</div>
+        <h3>Streaks motivadores</h3>
+        <p>Cada hábito mantido vira uma sequência. Veja sua maior streak e não quebre o ritmo.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="icon ic-purple">🎯</div>
+        <h3>Metas flexíveis</h3>
+        <p>Contadores semanais, hábitos diários ou foco cronometrado — escolha o formato que faz sentido pra cada meta.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="icon ic-dark">⏱️</div>
+        <h3>Foco cronometrado</h3>
+        <p>Use o cronômetro de foco profundo pra proteger blocos de concentração e acumular tempo produtivo.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="icon ic-blue">🌙</div>
+        <h3>Sono e bem-estar</h3>
+        <p>Registre o horário de dormir e acordar, e acompanhe quantas horas de sono você teve cada noite.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="icon ic-orange">📊</div>
+        <h3>Dashboard completo</h3>
+        <p>Calendário mensal, taxa de conclusão diária e visão geral de todos os seus streaks ativos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE DARK -->
+  <section class="section wrap">
+    <div class="showcase reveal">
+      <div class="glow"></div>
+      <div class="showcase-inner">
+        <div class="section-head">
+          <div class="eyebrow">🌗 Claro & escuro</div>
+          <h2>Combina com o seu momento</h2>
+          <p>Tema claro de dia, escuro de noite. O Rotina se adapta ao seu ritmo — literalmente.</p>
+        </div>
+        <div class="showcase-grid">
+          <div class="sc-card">
+            <div class="ring">25:00</div>
+            <h4 style="text-align:center">Foco profundo</h4>
+            <p class="desc" style="text-align:center">Cronômetro dedicado pra blocos de concentração sem distração.</p>
+          </div>
+          <div class="sc-card">
+            <h4>Taxa de hoje</h4>
+            <div class="big">64%</div>
+            <p class="desc">Acompanhe quantas das suas tarefas diárias foram concluídas, em tempo real.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="como-funciona" class="section wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">🚀 Como funciona</div>
+      <h2>Comece em poucos minutos</h2>
+      <p>Sem curva de aprendizado. Em quatro passos você já está construindo consistência.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h4>Baixe e instale</h4>
+        <p>Faça o download do APK e instale no seu Android. Sem loja, sem complicação.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h4>Crie sua conta</h4>
+        <p>Cadastre-se com email e senha. Os 200 primeiros usuários entram no programa de fundadores.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h4>Monte sua rotina</h4>
+        <p>Adicione tarefas, metas e horários de sono que fazem sentido pra você.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">04</div>
+        <h4>Acompanhe e evolua</h4>
+        <p>Veja seu progresso no dashboard e deixe as streaks te manterem no caminho.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section wrap">
+    <div class="cta-section reveal">
+      <h2>Mais constância. Mais você.</h2>
+      <p>Baixe o Rotina agora e comece sua primeira streak hoje.</p>
+      <div class="cta-buttons">
+        <a href="releases/rotina.apk" class="btn-apk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+          Baixar Rotina.apk
+        </a>
+      </div>
+      <p class="cta-foot">Versão para Android · Atualizações futuras direto pelo app</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div class="logo">Rotina<span class="dot">.</span></div>
+      <p>Organize sua rotina, acompanhe seu progresso e evolua um dia de cada vez.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <h5>Produto</h5>
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="releases/rotina.apk">Baixar APK</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Rotina. Todos os direitos reservados.</span>
+    <span>Feito pra quem quer evoluir, um dia de cada vez.</span>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
